@@ -3,86 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيادة الأسنان الذكية</title>
+    <title>عيادة الأسنان الذكية | حجز موعد</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root { --blue: #0ea5e9; --dark: #0f172a; --bg: #f8fafc; }
-        body { background: var(--bg); font-family: 'Tajawal', sans-serif; color: var(--dark); margin: 0; padding: 15px; text-align: center; }
-        .header { background: var(--blue); color: white; padding: 30px 20px; border-radius: 0 0 30px 30px; margin: -15px -15px 20px -15px; }
-        .wrapper { max-width: 450px; margin: auto; }
-        
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-        .s-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; transition: 0.3s; }
-        .s-card i { color: var(--blue); font-size: 28px; margin-bottom: 10px; display: block; }
-        .s-card b { display: block; font-size: 15px; color: var(--dark); }
-        .s-card span { font-size: 13px; color: #64748b; }
+        :root { 
+            --blue: #0ea5e9; 
+            --dark: #1e293b; 
+            --bg: #f1f5f9; 
+            --white: #ffffff;
+        }
 
-        .booking-box { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-top: 20px; }
-        input, select, button { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: 1px solid #cbd5e1; font-family: 'Tajawal'; box-sizing: border-box; font-size: 15px; }
-        button { background: var(--blue); color: white; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; font-size: 17px; }
-        button:hover { background: #0284c7; }
-        
-        .map-btn { display: inline-block; margin-top: 15px; color: var(--blue); text-decoration: none; font-weight: bold; }
-        #loader { color: var(--blue); padding: 20px; }
+        body { 
+            background: var(--bg); 
+            font-family: 'Tajawal', sans-serif; 
+            color: var(--dark); 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            justify-content: center; 
+        }
+
+        .container { width: 100%; max-width: 450px; }
+
+        /* الهيدر */
+        .header { 
+            background: var(--blue); 
+            color: white; 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-radius: 0 0 40px 40px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header i { font-size: 50px; margin-bottom: 10px; }
+        .header h1 { margin: 10px 0 5px; font-size: 22px; }
+
+        /* أزرار التواصل السريع */
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
+            padding: 20px; 
+            margin-top: -30px; 
+        }
+        .contact-btn { 
+            background: var(--white); 
+            padding: 15px 5px; 
+            border-radius: 15px; 
+            text-decoration: none; 
+            text-align: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .contact-btn i { font-size: 20px; display: block; margin-bottom: 5px; }
+        .contact-btn span { font-size: 12px; font-weight: bold; color: var(--dark); }
+        .btn-call i { color: #2563eb; }
+        .btn-wa i { color: #22c55e; }
+        .btn-map i { color: #ef4444; }
+        .contact-btn:hover { transform: translateY(-5px); }
+
+        /* الخدمات */
+        .section-title { padding: 0 20px; margin-top: 20px; font-size: 18px; color: var(--blue); }
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            padding: 15px; 
+        }
+        .s-card { 
+            background: var(--white); 
+            padding: 15px; 
+            border-radius: 18px; 
+            text-align: center; 
+            border: 1px solid #e2e8f0;
+        }
+        .s-card i { color: var(--blue); font-size: 24px; margin-bottom: 8px; }
+        .s-card b { display: block; font-size: 14px; }
+        .s-card span { font-size: 11px; color: #64748b; }
+
+        /* نموذج الحجز */
+        .form-box { 
+            background: var(--white); 
+            margin: 15px; 
+            padding: 25px; 
+            border-radius: 25px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+        }
+        input, select, textarea, button { 
+            width: 100%; 
+            padding: 14px; 
+            margin-bottom: 15px; 
+            border-radius: 12px; 
+            border: 1px solid #cbd5e1; 
+            font-family: 'Tajawal'; 
+            box-sizing: border-box; 
+        }
+        button { 
+            background: var(--blue); 
+            color: white; 
+            border: none; 
+            font-weight: bold; 
+            font-size: 16px; 
+            cursor: pointer; 
+        }
+        #loader { text-align: center; color: var(--blue); padding: 20px; }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
+<div class="container">
     <div class="header">
-        <i class="fas fa-tooth fa-3x"></i>
-        <h2>عيادة الدكتور فلان</h2>
-        <p>لحجز موعدك وتصفح خدماتنا</p>
+        <i class="fas fa-tooth"></i>
+        <h1>عيادة الدكتور ناصر للأسنان</h1>
+        <p>رعاية طبية احترافية لابتسامة رائعة</p>
     </div>
 
-    <div id="loader">جاري مزامنة المواعيد المتاحة...</div>
+    <div class="contact-grid">
+        <a href="tel:+213123456789" class="contact-btn btn-call">
+            <i class="fas fa-phone-alt"></i>
+            <span>اتصال</span>
+        </a>
+        <a href="https://wa.me/213123456789" class="contact-btn btn-wa">
+            <i class="fab fa-whatsapp"></i>
+            <span>واتساب</span>
+        </a>
+        <a href="https://goo.gl/maps/xyz" class="contact-btn btn-map">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>الموقع</span>
+        </a>
+    </div>
+
+    <h3 class="section-title">خدماتنا</h3>
+    <div id="loader"><i class="fas fa-spinner fa-spin"></i> جاري مزامنة العيادة...</div>
     <div id="servicesContainer" class="services-grid"></div>
 
-    <div class="booking-box">
-        <h3 style="margin-top:0">احجز موعدك الآن</h3>
+    <div class="form-box">
+        <h3 style="margin-top:0; color: var(--blue);">حجز موعد جديد</h3>
         <form id="dentistForm">
-            <input type="text" name="name" placeholder="اسم المريض" required>
-            <input type="tel" name="phone" placeholder="رقم الجوال" required>
+            <input type="text" name="name" placeholder="الاسم الكريم" required>
+            <input type="tel" name="phone" placeholder="رقم الهاتف" required>
             <select name="service" id="serviceDrop" required>
-                <option value="" disabled selected>اختر نوع المعالجة</option>
+                <option value="" disabled selected>اختر الخدمة المطلوبة</option>
             </select>
-            <button type="submit" id="subBtn">تأكيد الموعد</button>
+            <textarea name="message" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+            <button type="submit" id="subBtn">تأكيد الحجز</button>
         </form>
-        <a href="https://maps.google.com/?q=Dentist+Location" target="_blank" class="map-btn">
-            <i class="fas fa-map-marker-alt"></i> موقعنا على الخريطة
-        </a>
     </div>
 </div>
 
 <script>
-    const APP_URL = 'https://script.google.com/macros/s/AKfycbwP2F_ffK6TTuEW_7ToYP-W8xKggjMFRgOE4iO-_FqosIKErOqYf0u8u295CiV3vtK5SA/exec';
-
-    window.onload = () => {
-        fetch(APP_URL).then(res => res.json()).then(data => {
-            document.getElementById('loader').style.display = 'none';
-            data.forEach(item => {
-                document.getElementById('servicesContainer').innerHTML += `
-                    <div class="s-card">
-                        <i class="fas ${item.icon}"></i>
-                        <b>${item.name}</b>
-                        <span>${item.price}</span>
-                    </div>`;
-                document.getElementById('serviceDrop').innerHTML += `<option value="${item.name}">${item.name}</option>`;
-            });
-        });
-    };
-
-    document.getElementById('dentistForm').onsubmit = (e) => {
-        e.preventDefault();
-        const b = document.getElementById('subBtn');
-        b.disabled = true; b.innerText = "جاري إرسال الطلب...";
-        fetch(APP_URL, { method: 'POST', body: new FormData(e.target) }).then(() => {
-            alert("✅ تم إرسال طلب الحجز بنجاح. ستتصل بك العيادة لتأكيد الموعد.");
-            e.target.reset();
-            b.disabled = false; b.innerText = "تأكيد الموعد";
-        });
-    };
-</script>
-</body>
-</html>
+    // ضع رابط الـ Web App الخاص بك
