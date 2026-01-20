@@ -154,4 +154,56 @@
 </div>
 
 <script>
-https://script.google.com/macros/s/AKfycbwP2F_ffK6TTuEW_7ToYP-W8xKggjMFRgOE4iO-_FqosIKErOqYf0u8u295CiV3vtK5SA/exec
+    // الرابط الخاص بك الذي قمت بنسخه
+    const URL = 'https://script.google.com/macros/s/AKfycbwP2F_ffK6TTuEW_7ToYP-W8xKggjMFRgOE4iO-_FqosIKErOqYf0u8u295CiV3vtK5SA/exec';
+
+    // جلب الخدمات من الإكسل عند فتح الصفحة
+    window.onload = () => {
+        fetch(URL)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('loader').style.display = 'none';
+            const container = document.getElementById('servicesContainer');
+            const drop = document.getElementById('serviceDrop');
+
+            data.forEach(item => {
+                container.innerHTML += `
+                    <div class="s-card">
+                        <i class="fas ${item.icon}"></i>
+                        <b>${item.name}</b>
+                        <span>${item.price}</span>
+                    </div>`;
+                drop.innerHTML += `<option value="${item.name}">${item.name}</option>`;
+            });
+        })
+        .catch(err => {
+            document.getElementById('loader').innerHTML = "خطأ في الاتصال بالبيانات";
+            console.error(err);
+        });
+    };
+
+    // إرسال الحجز للإكسل عند الضغط على الزر
+    document.getElementById('dentistForm').onsubmit = (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('subBtn');
+        btn.disabled = true;
+        btn.innerText = "جاري الحفظ...";
+
+        // إرسال البيانات كـ URL Parameters لضمان وصولها للإكسل
+        const formData = new FormData(e.target);
+        const params = new URLSearchParams(formData).toString();
+
+        fetch(URL + "?" + params, { method: 'POST' })
+        .then(() => {
+            alert("✅ تم إرسال طلبك! ستتواصل معك العيادة قريباً لتأكيد الموعد.");
+            e.target.reset();
+            btn.disabled = false;
+            btn.innerText = "تأكيد الحجز";
+        })
+        .catch(() => {
+            alert("حدث خطأ، حاول مرة أخرى");
+            btn.disabled = false;
+            btn.innerText = "تأكيد الحجز";
+        });
+    };
+</script>
